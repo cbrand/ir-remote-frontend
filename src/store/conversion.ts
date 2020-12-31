@@ -116,6 +116,7 @@ export function convertInstruction(instruction: definition.Instruction): Instruc
 export function convertScene(scene: definition.Scene): RemoteScene {
     return {
         type: "RemoteScene",
+        id: uuid4(),
         instructions: scene.getInstructionsList().map(convertInstruction)
     } as RemoteScene
 }

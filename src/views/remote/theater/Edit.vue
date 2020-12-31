@@ -143,19 +143,22 @@
 
 
 <script lang="ts">
+import Vue from 'vue';
 import { v4 } from 'uuid'
 import { Remote, Theater, DescriptiveScene as DescriptiveSceneObject, Function, RemoteCommand } from '@/store/interface'
 import { icons, getIconImageById } from '@/resources/icons'
 import { newCommand, newDescriptiveScene } from '@/store/constructors'
-import DescriptiveScene from '@/components/input/DescriptiveScene'
-import IRCommand from '@/components/input/IRCommand'
+import DescriptiveScene from '@/components/input/DescriptiveScene.vue'
+import IRCommand from '@/components/input/IRCommand.vue'
 
-export default {
+export default Vue.extend({
     components: {
         DescriptiveScene,
         "ir-command": IRCommand,
     },
     data: function() {
+        // eslint-disable-next-line
+        const component = (this as any);
         return {
             name: null,
             icon: null,
@@ -163,9 +166,7 @@ export default {
             valid: false,
             nameRules: [
                 (name: string) => !!name || "Name is required",
-                function(name: string) { 
-                    return !this.nameAlreadyExists(name) || "The theater already exists with the same name"
-                }.bind(this)
+                (name: string) => component.nameAlreadyExists(name) || "The theater already exists with the same name"
             ],
             emptyCommand: newCommand()
         }
@@ -194,7 +195,7 @@ export default {
             return getIconImageById(this.theater.icon);
         },
         usedFunctions(): Array<Function> {
-            return this.descriptiveScenes.map((scene) => scene.function);
+            return this.descriptiveScenes.filter((scene) => scene.function != null).map((scene) => scene.function) as Array<Function>;
         }
     },
     methods: {
@@ -236,5 +237,5 @@ export default {
     mounted: function() {
         this.switchEditMode();
     }
-}
+});
 </script>

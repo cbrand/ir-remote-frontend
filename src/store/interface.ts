@@ -34,12 +34,14 @@ export interface RemoteWait {
 
 export interface RemoteRepeat {
     type: "RemoteRepeat";
+    id: string | undefined;
     times: number;
     instruction: Instruction;
 }
 
 export interface RemoteScene {
     type: "RemoteScene";
+    id: string | undefined;
     instructions: Array<Instruction>;
 }
 
@@ -57,6 +59,7 @@ export interface DescriptiveScene {
 export interface Theater {
     id: string;
     name: string;
+    remoteId: string | undefined;
     sortKey: number;
     scenes: Array<DescriptiveScene>;
     icon: string | undefined;

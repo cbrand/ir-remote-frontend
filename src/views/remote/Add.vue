@@ -53,6 +53,7 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import { parse as uuidParse } from 'uuid';
 import { Remote } from '@/store/interface';
 
@@ -65,7 +66,7 @@ function checkForUUID(uuidString: string): boolean {
     }
 }
 
-export default {
+export default Vue.extend({
     data: () => ({
         valid: false,
         disabled: false,
@@ -81,7 +82,7 @@ export default {
     }),
     methods: {
         success(): void {
-            if(!this.valid || !this.$refs.form.validate()) {
+            if(!this.valid || !(this.$refs.form as any).validate()) {
                 return;
             }
             this.disabled = true;
@@ -92,5 +93,5 @@ export default {
             this.$router.push({name: "remote/view", params: {"remoteId": this.remoteId}});
         }
     }
-}
+})
 </script>

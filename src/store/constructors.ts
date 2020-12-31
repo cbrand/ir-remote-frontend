@@ -9,7 +9,9 @@ export function newCommand(): RemoteCommand {
         command: {
             command: 0,
             deviceId: 0
-        } as NECCommand
+        } as NECCommand,
+        iscpCommand: null,
+        rc6Command: null
     }
 }
 
@@ -31,6 +33,7 @@ export function newDescriptiveScene(): DescriptiveScene {
         sortKey: 0,
         scene: {
             type: "RemoteScene",
+            id: uuid4(),
             instructions: []
         } as RemoteScene
     }

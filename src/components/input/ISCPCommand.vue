@@ -45,29 +45,30 @@
 </template>
 
 <script lang="ts">
-    import { ISCPCommand } from '@/store/interface';
+    import Vue from 'vue';
+    import { ISCPCommand, ISCPStatus } from '@/store/interface';
 
-    export default {
+    export default Vue.extend({
         name: "iscp-command",
         props: {
             iscpCommand: {
-                type: Object as ISCPCommand,
+                type: Object as () => ISCPCommand,
                 required: true
             }
         },
         data: () => ({
             identifierRules: [
-                value => value.length != 0 || "ISCP identifier must be set",
-                value => value.length <= 13 || "ISCP identifier cannot be larger than 12"
+                (value: string) => value.length != 0 || "ISCP identifier must be set",
+                (value: string) => value.length <= 13 || "ISCP identifier cannot be larger than 12"
             ],
             commandRules: [
-                value => value.length == 3 || "ISCP Commands always have three characters"
+                (value: string) => value.length == 3 || "ISCP Commands always have three characters"
             ],
             argumentRules: []
         }),
         computed: {
             identifiers: function() {
-                return this.$store.state.iscpStatus.map((iscpStatus) => iscpStatus.identifier);
+                return this.$store.state.iscpStatus.map((iscpStatus: ISCPStatus) => iscpStatus.identifier);
             }
         },
         watch: {
@@ -84,5 +85,5 @@
                 this.$store.dispatch("queryISCPStatus");
             }
         }
-    }
+    })
 </script>

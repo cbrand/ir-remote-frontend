@@ -42,20 +42,20 @@
     import { NECCommand } from '@/store/interface';
     import Vue from 'vue'
 
-    export default {
+    export default Vue.extend({
         name: "nec-command",
         props: {
             necCommand: {
-                type: Object as NECCommand,
+                type: Object as () => NECCommand,
                 required: true
             }
         },
         data: () => ({
             deviceIDRules: [
-                value => value >= 0 && value <= 512 || "Device ID needs to be between 512 and 0"
+                (value: number) => value >= 0 && value <= 512 || "Device ID needs to be between 512 and 0"
             ],
             commandCodeRules: [
-                value => value >= 0 && value <= 255 || "Command ID needs to be between 255 and 0"
+                (value: number) => value >= 0 && value <= 255 || "Command ID needs to be between 255 and 0"
             ]
         }),
         watch: {
@@ -63,5 +63,5 @@
                 this.$store.commit("updateLastEnteredNecDeviceId", newValue)
             }
         }
-    }
+    });
 </script>

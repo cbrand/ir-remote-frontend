@@ -9,9 +9,10 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import { Remote } from '@/store/interface';
-export default {
+export default Vue.extend({
     props: ["remote"],
     
-}
+})
 </script>

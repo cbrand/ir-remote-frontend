@@ -38,19 +38,20 @@
 </template>
 
 <script lang="ts">
+    import Vue from 'vue';
     import { RC6Command } from '@/store/interface';
 
-    export default {
+    export default Vue.extend({
         name: "rc6-command",
         props: {
             rc6Command: {
-                type: Object as RC6Command,
+                type: Object as () => RC6Command,
                 required: true
             }
         },
         data: () => ({
             rc6InputRules: [
-                value => value >= 0 && value <= 255 || "RC6 element needs to be between 255 and 0"
+                (value: number) => value >= 0 && value <= 255 || "RC6 element needs to be between 255 and 0"
             ]
         }),
         watch: {
@@ -58,5 +59,5 @@
                 this.$store.commit("updateLastEnteredRC6Control", newValue);
             }
         }
-    }
+    });
 </script>

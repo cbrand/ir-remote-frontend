@@ -18,10 +18,11 @@ import { Component, Vue } from 'vue-property-decorator';
     }
   },
   mounted: function() {
+    const remote: Remote | undefined = (this as any).remote;
     if(this.$store.getters.selectedRemoteId) {
       this.$router.push({name: "remote/view", params: {"remoteId": this.$store.getters.selectedRemoteId}});
-    } else if(this.remote) {
-      this.$router.push({name: "remote/view", params: {"remoteId": this.remote.id}})
+    } else if(remote) {
+      this.$router.push({name: "remote/view", params: {"remoteId": remote.id}})
     }
   }
 })

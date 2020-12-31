@@ -161,16 +161,17 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import { Remote, Theater, Function } from '@/store/interface';
 import RepeatClickBtn from '@/components/RepeatClickBtn.vue';
 
-export default {
+export default Vue.extend<any, any, any, any>({
     components: {
         "repeat-click-btn": RepeatClickBtn
     },
     props: {
         remote: {
-            type: Object as Remote,
+            type: Object as () => Remote,
             required: false
         }
     },
@@ -245,13 +246,13 @@ export default {
         }
     },
     mounted() {
-        this.switchEditMode();
+        (this as any).switchEditMode();
     },
     watch: {
         '$route': 'switchEditMode',
         inEditMode: 'switchEditMode',
     }
-}
+})
 </script>
 
 <style lang="scss">

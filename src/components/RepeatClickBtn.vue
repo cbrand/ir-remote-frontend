@@ -5,30 +5,34 @@
 </template>
 
 <script lang="ts">
+    import Vue from 'vue';
+
     interface Data {
-        interval: null | number;
+        interval: number | undefined;
     }
 
-    export default {
+    export default Vue.extend({
         name: "repeat-click-btn",
-        data: () => ({ interval: null } as Data),
+        data: () => ({ interval: undefined } as Data),
         computed: {
             btnClass: function(): string {
-                return this.class;
+                return (this as any).class;
             }
         },
         methods: {
-            action() {
+            action(): void {
                 this.$emit("action");
             },
-            start() {
-                this.interval = setInterval(() => this.action(), 500);
+            start(): void {
+                this.interval = setInterval(() => this.action(), 300);
                 this.action();
             },
-            end() {
-                clearInterval(this.interval);
-                this.interval = null;
+            end(): void {
+                if(this.interval) {
+                    clearInterval(this.interval);
+                }
+                this.interval = undefined;
             }
         }
-    }
+    })
 </script>

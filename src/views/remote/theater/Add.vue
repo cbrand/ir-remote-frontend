@@ -59,12 +59,15 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import { v4 as uuid4 } from 'uuid';
 import { Remote, Theater } from '@/store/interface'
 import { icons, getIconImageById } from '../../../resources/icons'
 
-export default {
+export default Vue.extend({
     data: function() {
+        // eslint-disable-next-line
+        const component = (this as any);
         return {
             valid: false,
             disabled: false,
@@ -72,9 +75,7 @@ export default {
             icon: null,
             nameRules: [
                 (name: string) => !!name || "Name is required",
-                function(name: string) { 
-                    return !this.nameAlreadyExists(name) || "The theater already exists with the same name"
-                }.bind(this)
+                (name: string) => !component.nameAlreadyExists(name) || "The theater already exists with the same name"
             ],
             icons: icons
         }
@@ -83,6 +84,9 @@ export default {
         remote(): Remote {
             const remotes: Array<Remote> = this.$store.state.remotes;
             const remote = remotes.find((remote) => remote && remote.id == this.$route.params.remoteId);
+            if(!remote) {
+                throw new Error("Remote with added id not found");
+            }
             return remote;
         },
         remoteId(): string {
@@ -95,11 +99,13 @@ export default {
             return this.$store.state.inEditMode;
         },
         iconRepresentation(): string | undefined {
-            if(!this.icon) {
-                return undefined;
-            }
+            const icon = this.icon;
 
-            return getIconImageById(this.icon);
+            if(!icon) {
+                return undefined;
+            } else {
+                return getIconImageById(icon);
+            }
         }
     },
     methods: {
@@ -111,7 +117,7 @@ export default {
             const theater = {
                 "id": uuid4(),
                 "name": this.name,
-                "icon": this.icon,
+                "icon": this.icon || undefined,
                 "remoteId": this.remoteId,
                 "sortKey": 0,
                 "scenes": []
@@ -123,5 +129,5 @@ export default {
             return this.theaters.findIndex((theater: Theater) => theater.name == name) !== -1;
         }
     }
-}
+})
 </script>

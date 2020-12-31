@@ -35,20 +35,21 @@
 
 <script lang="ts">
     import { RemoteWait } from '@/store/interface'
+    import Vue from 'vue';
 
-    export default {
+    export default Vue.extend({
         name: "ir-wait",
         props: {
             wait: {
-                type: Object as RemoteWait,
+                type: Object as () => RemoteWait,
                 required: true
             }
         },
         data: () => ({
             timeInMillisecondsRule: [
-                (value) => value >= 0 || "Wait time must not be negative",
-                (value) => value <= 10000 || "Wait time must be less than 10000 milliseconds"
+                (value: number) => value >= 0 || "Wait time must not be negative",
+                (value: number) => value <= 10000 || "Wait time must be less than 10000 milliseconds"
             ]
         })
-    }
+    })
 </script>

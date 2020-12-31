@@ -17,9 +17,10 @@
 
 
 <script lang="ts">
+import Vue from 'vue';
 import { Remote, Theater, DescriptiveScene } from '@/store/interface'
 
-export default {
+export default Vue.extend({
     data: () => ({
     }),
     watch: {
@@ -48,5 +49,5 @@ export default {
             this.$store.commit("selectTheaterUUID", theaterId);
         }
     }
-}
+});
 </script>

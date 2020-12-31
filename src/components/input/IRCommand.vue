@@ -30,11 +30,11 @@
 <script lang="ts">
     import { NECCommand, RC6Command, RemoteCommand, ISCPCommand } from '@/store/interface';
     import Vue from 'vue'
-    import NECCommandComponent from './NECCommand'
-    import RC6CommandComponent from './RC6Command'
-    import ISCPCommandComponent from './ISCPCommand'
+    import NECCommandComponent from './NECCommand.vue'
+    import RC6CommandComponent from './RC6Command.vue'
+    import ISCPCommandComponent from './ISCPCommand.vue'
 
-    export default {
+    export default Vue.extend({
         name: "ir-command",
         components: {
             "nec-command": NECCommandComponent,
@@ -43,7 +43,7 @@
         },
         props: {
             command: {
-                type: Object as RemoteCommand,
+                type: Object as () => RemoteCommand,
                 required: true
             }
         },
@@ -67,20 +67,20 @@
             isISCP(): boolean {
                 return this.commandType == "ISCP" && !!this.iscpCommand;
             },
-            necCommand(): NECCommand | undefined {
+            necCommand(): NECCommand | null {
                 return this.command.command;
             },
-            rc6Command(): RC6Command | undefined {
+            rc6Command(): RC6Command | null {
                 return this.command.rc6Command;
             },
-            iscpCommand(): ISCPCommand | undefined {
+            iscpCommand(): ISCPCommand | null {
                 return this.command.iscpCommand;
             }
         },
         methods: {
             populateCommandType(): void {
                 if(this.commandType != "NEC") {
-                    this.command.necCommand = null;
+                    this.command.command = null;
                 }
                 if(this.commandType != "RC6") {
                     this.command.rc6Command = null;
@@ -89,7 +89,7 @@
                     this.command.iscpCommand = null;
                 }
 
-                if(this.commandType == "NEC" && !this.command.necCommand) {
+                if(this.commandType == "NEC" && !this.command.command) {
                     this.setEmptyNecCommand();
                 } else if(this.commandType == "RC6" && !this.command.rc6Command) {
                     this.setEmptyRc6Command();
@@ -121,5 +121,5 @@
         watch: {
             "commandType": "populateCommandType"
         }
-    }
+    });
 </script>

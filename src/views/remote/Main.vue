@@ -26,10 +26,11 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import { Remote, Theater } from '@/store/interface'
 import { getIconImageById } from '../../resources/icons'
 
-export default {
+export default Vue.extend({
     data: () => ({
     }),
     mounted () {
@@ -42,6 +43,9 @@ export default {
         remote(): Remote {
             const remotes: Array<Remote> = this.$store.state.remotes;
             const remote = remotes.find((remote) => remote.id == this.$route.params.remoteId);
+            if(!remote) {
+                throw new Error("Remote with id " + this.$route.params.remoteId + " does not exist");
+            }
             return remote;
         },
         theaters(): Array<Theater> {
@@ -63,5 +67,5 @@ export default {
             this.$store.dispatch("selectRemoteUUID", remoteId);
         }
     }
-}
+})
 </script>

@@ -72,22 +72,22 @@
     import { textOfFunction, iconOfFunction, functions } from '@/resources/functions'
     import { DescriptiveScene, Instruction, NECCommand, RemoteCommand, RemoteScene, RemoteWait, Function } from '@/store/interface';
     import { newCommand, newWait } from "@/store/constructors"
-    import InstructionComponent from "./Instruction"
+    import InstructionComponent from "./Instruction.vue"
     import { v4 as uuid4 } from "uuid"
     import Vue from "vue";
 
-    export default {
+    export default Vue.extend<any, any, any, any>({
         name: "descriptive-scene",
         components: {
             "instruction": InstructionComponent,
         },
         props: {
             scene: {
-                type: Object as DescriptiveScene,
+                type: Object as () => DescriptiveScene,
                 required: true
             },
             usedFunctions: {
-                type: Array as Array<Function>,
+                type: Array as () => Array<Function>,
                 required: false
             }
         },
@@ -103,7 +103,7 @@
                     return this.functions;
                 }
 
-                return this.functions.filter((func) => this.scene.function === func.value || !this.usedFunctions.some((usedFunction) => usedFunction === func.value));
+                return this.functions.filter((func: any) => this.scene.function === func.value || !this.usedFunctions.some((usedFunction: any) => usedFunction === func.value));
             },
             sceneFunctionIcon(): undefined | string {
                 if(!this.scene) {
@@ -124,7 +124,9 @@
             },
             addCommand(): void {
                 const command = newCommand();
-                command.command.deviceId = this.$store.state.lastEnteredNecDeviceId || 0;
+                if(command.command) {
+                    command.command.deviceId = this.$store.state.lastEnteredNecDeviceId || 0;
+                }
                 this.addInstruction(command);
             },
             addWait(): void {
@@ -134,10 +136,10 @@
                 this.instructions.push(instruction);
             },
             removeInstruction(instructionId: string): void {
-                this.remoteScene.instructions = this.instructions.filter((instruction) => instruction.id !== instructionId)
+                this.remoteScene.instructions = this.instructions.filter((instruction: Instruction) => instruction.id !== instructionId)
             },
             indexOfInstructionId(instructionId: string): number {
-                return this.instructions.findIndex((instruction) => instruction.id == instructionId)
+                return this.instructions.findIndex((instruction: Instruction) => instruction.id == instructionId)
             },
             moveUpDisabled(instructionId: string): boolean {
                 return this.indexOfInstructionId(instructionId) === 0;
@@ -167,12 +169,13 @@
         },
         watch: {
             "scene.function": function(newFunction: Function, oldFunction: Function): void {
-                if(!this.scene.name || this.scene.name == textOfFunction(oldFunction)) {
-                    this.scene.name = textOfFunction(newFunction) || "";
+                const scene: DescriptiveScene = (this as any).scene;
+                if(!scene.name || scene.name == textOfFunction(oldFunction)) {
+                    Vue.set(scene, "name", textOfFunction(newFunction) || "");
                 }
             }
         }
-    }
+    })
 </script>
 
 <style lang="scss">

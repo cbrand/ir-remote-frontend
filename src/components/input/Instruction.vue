@@ -14,11 +14,12 @@
 </template>
 
 <script lang="ts">
+    import Vue from 'vue';
     import { Instruction, RemoteCommand, RemoteWait } from '@/store/interface'
     import IRCommand from './IRCommand.vue'
     import IRWait from './IRWait.vue'
     
-    export default {
+    export default Vue.extend({
         name: "instruction",
         components: {
             "ir-command": IRCommand,
@@ -27,7 +28,7 @@
         props: {
             instruction: {
                 required: true,
-                type: Object
+                type: Object as () => Instruction
             }
         },
         computed: {
@@ -38,5 +39,5 @@
                 return this.instruction.type == "RemoteWait";
             }
         }
-    }
+    });
 </script>

@@ -590,4 +590,7 @@ export enum Function {
   STOP = 34,
   FAST_FORWARD = 35,
   FAST_REWIND = 36,
+  SUBTITLE = 37,
+  LANGUAGE = 38,
+  MENU = 39,
 }

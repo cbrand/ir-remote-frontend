@@ -162,6 +162,21 @@ export const functions: Array<Function> = [
         text: "Rewind",
         value: FunctionEnum.FAST_REWIND,
         icon: "mdi-rewind"
+    },
+    {
+        text: "Subtitle",
+        value: FunctionEnum.SUBTITLE,
+        icon: "mdi-subtitles-outline"
+    },
+    {
+        text: "Language",
+        value: FunctionEnum.LANGUAGE,
+        icon: "mdi-translate"
+    },
+    {
+        text: "Menu",
+        value: FunctionEnum.MENU,
+        icon: "mdi-menu"
     }
 ];
 

@@ -24,7 +24,7 @@
                 this.$emit("action");
             },
             start(): void {
-                this.interval = setInterval(() => this.action(), 300);
+                this.interval = setInterval(() => this.action(), 400);
                 this.action();
             },
             end(): void {

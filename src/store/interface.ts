@@ -96,7 +96,10 @@ export enum Function {
     PLAY_PAUSE = 33,
     STOP = 34,
     FAST_FORWARD = 35,
-    FAST_REWIND = 36
+    FAST_REWIND = 36,
+    SUBTITLE = 37,
+    LANGUAGE = 38,
+    MENU = 39
 }
 
 // eslint-disable-next-line

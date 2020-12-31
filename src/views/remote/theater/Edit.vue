@@ -166,7 +166,7 @@ export default Vue.extend({
             valid: false,
             nameRules: [
                 (name: string) => !!name || "Name is required",
-                (name: string) => component.nameAlreadyExists(name) || "The theater already exists with the same name"
+                (name: string) => !component.nameAlreadyExists(name) || "The theater already exists with the same name"
             ],
             emptyCommand: newCommand()
         }
@@ -200,7 +200,8 @@ export default Vue.extend({
     },
     methods: {
         nameAlreadyExists(name: string): boolean {
-            return this.otherTheaters.findIndex((theater: Theater) => theater.name == name && theater.id != this.theater?.id) !== -1;
+            const theaterIndex = this.otherTheaters.findIndex((theater: Theater) => theater.name == name && theater.id != this.theater?.id);
+            return theaterIndex !== -1;
         },
         edit(): void {
             if(this.theater) {

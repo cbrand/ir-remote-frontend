@@ -156,6 +156,25 @@
             </v-btn>
         </v-col>
     </v-row>
+    <v-row v-if="showSubtitleOrLanguage">
+        <v-col xs="6" align="right">
+            <v-btn class="remote-btn remote-playback-control" v-if="showLanguage" @click="playFunction(Function.LANGUAGE)">
+                <v-icon>mdi-translate</v-icon> Language
+            </v-btn>
+        </v-col>
+        <v-col xs="6" align="right">
+            <v-btn class="remote-btn remote-playback-control" v-if="showSubtitle" @click="playFunction(Function.SUBTITLE)">
+                <v-icon>mdi-subtitles-outline</v-icon> Subtitle
+            </v-btn>
+        </v-col>
+    </v-row>
+    <v-row v-if="showMenu">
+        <v-col xs="12">
+            <v-btn class="remote-btn remote-playback-control" v-if="showMenu" @click="playFunction(Function.MENU)">
+                <v-icon>mdi-menu</v-icon> Menu
+            </v-btn>
+        </v-col>
+    </v-row>
 
     </v-container>
 </template>
@@ -214,6 +233,18 @@ export default Vue.extend<any, any, any, any>({
         },
         showRewind(): boolean {
             return this.hasOneFunction(Function.FAST_REWIND);
+        },
+        showSubtitleOrLanguage(): boolean {
+            return this.hasOneFunction(Function.SUBTITLE, Function.LANGUAGE);
+        },
+        showSubtitle(): boolean {
+            return this.hasOneFunction(Function.SUBTITLE);
+        },
+        showLanguage(): boolean {
+            return this.hasOneFunction(Function.LANGUAGE);
+        },
+        showMenu(): boolean {
+            return this.hasOneFunction(Function.MENU);
         }
     },
     methods: {

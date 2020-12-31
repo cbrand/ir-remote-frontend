@@ -9,11 +9,15 @@
 
     interface Data {
         interval: number | undefined;
+        intervalStart: number | undefined;
     }
 
     export default Vue.extend({
         name: "repeat-click-btn",
-        data: () => ({ interval: undefined } as Data),
+        data: () => ({ 
+            interval: undefined,
+            intervalStart: undefined
+        } as Data),
         computed: {
             btnClass: function(): string {
                 return (this as any).class;
@@ -24,14 +28,21 @@
                 this.$emit("action");
             },
             start(): void {
-                this.interval = setInterval(() => this.action(), 400);
+                this.intervalStart = setInterval(() => this.startAfterBackoff(), 1000);
                 this.action();
+            },
+            startAfterBackoff(): void {
+                this.interval = setInterval(() => this.action(), 300);
             },
             end(): void {
                 if(this.interval) {
                     clearInterval(this.interval);
                 }
+                if(this.intervalStart) {
+                    clearInterval(this.intervalStart);
+                }
                 this.interval = undefined;
+                this.intervalStart = undefined;
             }
         }
     })

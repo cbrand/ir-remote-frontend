@@ -1,18 +1,29 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>
 </template>
 
 <script lang="ts">
+import { Remote } from '@/store/interface';
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
 @Component({
-  components: {
-    HelloWorld,
+  computed: {
+    remote: function(): Remote | undefined {
+      const remotes = this.$store.getters.remotes;
+      if(remotes.length) {
+        return remotes[0];
+      }
+      return undefined;
+    }
   },
+  mounted: function() {
+    if(this.$store.getters.selectedRemoteId) {
+      this.$router.push({name: "remote/view", params: {"remoteId": this.$store.getters.selectedRemoteId}});
+    } else if(this.remote) {
+      this.$router.push({name: "remote/view", params: {"remoteId": this.remote.id}})
+    }
+  }
 })
 export default class Home extends Vue {}
 </script>

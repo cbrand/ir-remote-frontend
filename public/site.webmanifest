@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "IR Remote",
+    "short_name": "IR",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",

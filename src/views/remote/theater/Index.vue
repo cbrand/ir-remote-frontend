@@ -33,7 +33,7 @@
         </v-col>
         <v-col xs="4" align="center">
             <v-btn min-width="100%" class="remote-btn remote-wheel-btn" @click="playFunction(Function.UP)">
-                <v-icon>mdi-arrow-up</v-icon> Up
+                <v-icon>mdi-arrow-up</v-icon>
             </v-btn>
         </v-col>
         <v-col xs="4" align="left">
@@ -42,8 +42,8 @@
     </v-row>
     <v-row v-if="showWheel">
         <v-col xs="4" align="right">
-            <v-btn class="remote-btn remote-wheel-btn" @click="playFunction(Function.LEFT)">
-                <v-icon>mdi-arrow-left</v-icon> Left
+            <v-btn min-width="100%" class="remote-btn remote-wheel-btn" @click="playFunction(Function.LEFT)">
+                <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
         </v-col>
         <v-col xs="4">
@@ -52,23 +52,23 @@
             </v-btn>
         </v-col>
         <v-col xs="4">
-            <v-btn class="remote-btn remote-wheel-btn" @click="playFunction(Function.RIGHT)">
-                <v-icon>mdi-arrow-right</v-icon> Right
+            <v-btn min-width="100%" class="remote-btn remote-wheel-btn" @click="playFunction(Function.RIGHT)">
+                <v-icon>mdi-arrow-right</v-icon>
             </v-btn>
         </v-col>
     </v-row>
     <v-row v-if="showWheel">
-        <v-col xs="5" align="right">
+        <v-col xs="4" align="right">
             <v-btn class="remote-btn remote-wheel-btn" @click="playFunction(Function.BACK)">
                 <v-icon>mdi-backspace</v-icon> Back
             </v-btn>
         </v-col>
-        <v-col xs="2" align="center">
+        <v-col xs="4" align="center">
             <v-btn min-width="100%" class="remote-btn remote-wheel-btn" @click="playFunction(Function.DOWN)">
-                <v-icon>mdi-arrow-down</v-icon> Down
+                <v-icon>mdi-arrow-down</v-icon>
             </v-btn>
         </v-col>
-        <v-col xs="5" align="left">
+        <v-col xs="4" align="left">
             <v-btn class="remote-btn remote-wheel-btn" @click="playFunction(Function.EXIT)">
                 <v-icon>mdi-exit-to-app</v-icon> Exit
             </v-btn>
@@ -152,7 +152,7 @@
         </v-col>
         <v-col xs="6" align="left">
             <v-btn class="remote-btn remote-playback-control" v-if="showFastForward" @click="playFunction(Function.FAST_FORWARD)">
-                <v-icon>mdi-fast-forward</v-icon> Fast Forward
+                <v-icon>mdi-fast-forward</v-icon> Forward
             </v-btn>
         </v-col>
     </v-row>

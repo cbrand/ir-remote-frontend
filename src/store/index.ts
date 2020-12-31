@@ -59,7 +59,7 @@ function updateTheater(state: State, theater: Theater): void {
 export default new Vuex.Store({
   state: {
     remotes: [],
-    serviceURL: "https://apps.scolterius.net/ir-remote",
+    serviceURL: "https://apps.scolterius.net/ir-remote/grpc",
     selectedRemoteId: null,
     descriptiveScenes: [],
     iscpStatus: [],

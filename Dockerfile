@@ -9,6 +9,11 @@ RUN npm install
 
 COPY . .
 
+ARG VUE_APP_API_URL=https://apps.scolterius.net/ir-remote/grpc
+ENV VUE_APP_API_URL ${VUE_APP_API_URL}
+ARG BASE_URL
+ENV BASE_URL ${BASE_URL}
+
 RUN npm run build
 
 # production stage

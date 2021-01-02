@@ -11,7 +11,7 @@ import { Component, Vue } from 'vue-property-decorator';
   computed: {
     remote: function(): Remote | undefined {
       const remotes = this.$store.getters.remotes;
-      if(remotes.length) {
+      if(remotes && remotes.length) {
         return remotes[0];
       }
       return undefined;

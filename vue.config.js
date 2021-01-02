@@ -9,5 +9,5 @@ module.exports = {
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black'
   },
-  publicPath:  process.env.NODE_ENV === 'production' ? '/ir-remote/ui/': '/'
+  publicPath: process.env.BASE_URL ? process.env.BASE_URL : process.env.NODE_ENV === 'production' ? '/ir-remote/ui/': '/'
 }

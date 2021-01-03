@@ -105,14 +105,14 @@
     </v-row>
     <v-row v-if="showChannels">
         <v-col xs="6" align="right">
-            <repeat-click-btn class="remote-btn remote-program-control" @action="playFunction(Function.PROGRAM_DOWN)">
+            <v-btn class="remote-btn remote-program-control" @click="playFunction(Function.PROGRAM_DOWN)">
                 <v-icon>mdi-skip-previous</v-icon> Channel-
-            </repeat-click-btn>
+            </v-btn>
         </v-col>
         <v-col xs="6" align="left">
-            <repeat-click-btn class="remote-btn remote-program-control" @action="playFunction(Function.PROGRAM_UP)">
+            <v-btn class="remote-btn remote-program-control" @click="playFunction(Function.PROGRAM_UP)">
                 <v-icon>mdi-skip-next</v-icon> Channel+
-            </repeat-click-btn>
+            </v-btn>
         </v-col>
     </v-row>
     <v-row v-if="showExclusiveStartStop">

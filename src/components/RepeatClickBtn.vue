@@ -32,7 +32,7 @@
             start(): void {
                 this.triggerAction();
                 if(this.startTimeout === undefined) {
-                    this.startTimeout = setTimeout(() => this.startAfterBackoff(), 1000);
+                    this.startTimeout = setTimeout(() => this.startAfterBackoff(), 1500);
                 }
             },
             startAfterBackoff(): void {
